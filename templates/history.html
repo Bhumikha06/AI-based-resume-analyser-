@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="history-container">
+    <div class="history-header">
+        <div>
+            <h1>Your Scan History</h1>
+            <p style="color: #8A9CBE; margin-top: 0.5rem;">Track and review your previously analyzed resumes</p>
+        </div>
+        <a href="/" class="btn"><i class="fa-solid fa-cloud-arrow-up"></i> Scan New Resume</a>
+    </div>
+
+    {% if scans %}
+        <div class="history-card-grid">
+            {% for scan in scans %}
+                <div class="history-item">
+                    <div class="history-details">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <i class="fa-solid fa-file-invoice" style="color: var(--orange); font-size: 1.5rem;"></i>
+                            <h3>{{ scan.filename }}</h3>
+                        </div>
+                        <p style="font-weight: 600; color: var(--orange); font-size: 1.1rem; margin-top: 0.2rem;">
+                            {{ scan.recommended_title }}
+                        </p>
+                        <p style="color: #A0B3D6; max-width: 600px; font-size: 0.95rem; margin-top: 0.2rem; line-height: 1.4;">
+                            {{ scan.summary }}
+                        </p>
+                        <div class="history-meta" style="margin-top: 0.5rem;">
+                            <span><i class="fa-solid fa-calendar-days"></i> {{ scan.created_at }}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="history-score-badge">
+                        <div class="score-badge-circle">
+                            <span>{{ scan.ats_score }}%</span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="card" style="margin: 4rem auto; text-align: center; max-width: 600px; padding: 4rem 2rem;">
+            <i class="fa-solid fa-clock-rotate-left" style="font-size: 4rem; color: #8A9CBE; margin-bottom: 1.5rem; opacity: 0.6;"></i>
+            <h2>No Scan History Yet</h2>
+            <p style="color: #8A9CBE; margin-bottom: 2.5rem; line-height: 1.6;">
+                You haven't scanned any resumes yet. Once you upload and analyze your first resume while logged in, your history will show up here.
+            </p>
+            <a href="/" class="btn">Scan Your First Resume</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

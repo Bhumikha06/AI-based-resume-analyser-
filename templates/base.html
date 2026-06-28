@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Resume Analyzer & Job Matcher</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <a href="/" class="logo"><i class="fa-solid fa-bolt"></i> Resume<span>AI</span></a>
+        <nav class="nav-menu">
+            <a href="/" class="nav-link"><i class="fa-solid fa-house"></i> Home</a>
+            <a href="/build" class="nav-link"><i class="fa-solid fa-wand-magic-sparkles"></i> Builder</a>
+            {% if current_user %}
+                <a href="/history" class="nav-link"><i class="fa-solid fa-history"></i> History</a>
+                <span class="user-tag"><i class="fa-solid fa-user"></i> {{ current_user.name }}</span>
+                <a href="/logout" class="btn btn-outline" style="padding: 8px 20px; font-size: 0.85rem;"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+            {% else %}
+                <a href="/login" class="nav-link"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+                <a href="/register" class="btn" style="padding: 8px 20px; font-size: 0.85rem;"><i class="fa-solid fa-user-plus"></i> Sign Up</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Global Loader -->
+    <div class="loader-container" id="globalLoader">
+        <div class="loader"></div>
+        <h3 id="loaderText">Analyzing Profile...</h3>
+    </div>
+
+    <!-- Scripts block -->
+    {% block scripts %}{% endblock %}
+</body>
+</html>
